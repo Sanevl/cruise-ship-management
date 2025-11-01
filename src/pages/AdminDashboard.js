@@ -33,6 +33,7 @@ const AdminDashboard = () => {
     try {
       const ordersResponse = await fetch(`${API_BASE_URL}/api/admin/orders`);
       const bookingsResponse = await fetch(`${API_BASE_URL}/api/admin/bookings`);
+      const usersResponse = await fetch(`${API_BASE_URL}/api/admin/users`);
       
       if (ordersResponse.ok) {
         const ordersData = await ordersResponse.json();
@@ -43,49 +44,74 @@ const AdminDashboard = () => {
         const bookingsData = await bookingsResponse.json();
         setBookings(bookingsData);
       }
+  
+      if (usersResponse.ok) {
+        const usersData = await usersResponse.json();
+        setUsers(usersData);
+      }
     } catch (error) {
       setMessage('Error fetching data: ' + error.message);
       setTimeout(() => setMessage(''), 5000);
     }
   };
+  
 
-  const addUser = () => {
+  const addUser = async () => {
     if (newUser.email && newUser.name) {
-      // Check if email already exists
-      if (users.find(user => user.email === newUser.email)) {
-        setMessage('❌ User with this email already exists');
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/admin/users`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          setUsers([...users, result.user]);
+          setNewUser({ email: '', type: 'voyager', name: '', password: 'password' });
+          setMessage('✅ User added successfully! Default password: "password"');
+          setTimeout(() => setMessage(''), 5000);
+        } else {
+          throw new Error('Failed to add user');
+        }
+      } catch (error) {
+        setMessage('❌ Failed to add user: ' + error.message);
         setTimeout(() => setMessage(''), 5000);
-        return;
       }
-
-      const user = {
-        id: Date.now(), // Use timestamp for unique ID
-        ...newUser,
-        status: 'active',
-        joinDate: new Date().toLocaleDateString()
-      };
-      setUsers([...users, user]);
-      setNewUser({ email: '', type: 'voyager', name: '', password: 'password' });
-      setMessage('✅ User added successfully! Default password: "password"');
-      setTimeout(() => setMessage(''), 5000);
     } else {
       setMessage('❌ Please fill all fields');
       setTimeout(() => setMessage(''), 5000);
     }
   };
 
-  const editUser = (user) => {
-    setEditingUser({...user});
-  };
-
-  const updateUser = () => {
+  const updateUser = async () => {
     if (editingUser) {
-      setUsers(users.map(user => 
-        user.id === editingUser.id ? editingUser : user
-      ));
-      setEditingUser(null);
-      setMessage('✅ User updated successfully');
-      setTimeout(() => setMessage(''), 5000);
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/admin/users/${editingUser.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(editingUser),
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          setUsers(users.map(user => 
+            user.id === editingUser.id ? result.user : user
+          ));
+          setEditingUser(null);
+          setMessage('✅ User updated successfully');
+          setTimeout(() => setMessage(''), 5000);
+        } else {
+          throw new Error('Failed to update user');
+        }
+      } catch (error) {
+        setMessage('❌ Failed to update user: ' + error.message);
+        setTimeout(() => setMessage(''), 5000);
+      }
     }
   };
 
@@ -93,13 +119,27 @@ const AdminDashboard = () => {
     setEditingUser(null);
   };
 
-  const deleteUser = (userId) => {
+  const deleteUser = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(user => user.id !== userId));
-      setMessage('✅ User deleted successfully');
-      setTimeout(() => setMessage(''), 5000);
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/admin/users/${userId}`, {
+          method: 'DELETE',
+        });
+  
+        if (response.ok) {
+          setUsers(users.filter(user => user.id !== userId));
+          setMessage('✅ User deleted successfully');
+          setTimeout(() => setMessage(''), 5000);
+        } else {
+          throw new Error('Failed to delete user');
+        }
+      } catch (error) {
+        setMessage('❌ Failed to delete user: ' + error.message);
+        setTimeout(() => setMessage(''), 5000);
+      }
     }
   };
+  
 
   const resetUserPassword = (userId) => {
     setUsers(users.map(user => 

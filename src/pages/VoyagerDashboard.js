@@ -43,21 +43,17 @@ const VoyagerDashboard = () => {
 
   const fetchMyData = async () => {
     try {
-      const ordersResponse = await fetch(`${API_BASE_URL}/api/orders/catering`);
-      const bookingsResponse = await fetch(`${API_BASE_URL}/api/admin/bookings`);
+      const ordersResponse = await fetch(`${API_BASE_URL}/api/user/orders/${currentUser.uid}`);
+      const bookingsResponse = await fetch(`${API_BASE_URL}/api/user/bookings/${currentUser.uid}`);
       
       if (ordersResponse.ok) {
         const ordersData = await ordersResponse.json();
-        // Filter orders for current user
-        const myOrdersData = ordersData.filter(order => order.userId === currentUser.uid);
-        setMyOrders(myOrdersData);
+        setMyOrders(ordersData);
       }
       
       if (bookingsResponse.ok) {
         const bookingsData = await bookingsResponse.json();
-        // Filter bookings for current user
-        const myBookingsData = bookingsData.filter(booking => booking.userId === currentUser.uid);
-        setMyBookings(myBookingsData);
+        setMyBookings(bookingsData);
       }
     } catch (error) {
       console.log('Error fetching data:', error.message);
