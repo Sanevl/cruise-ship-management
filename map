@@ -1,0 +1,24 @@
+cruise-ship-management-netlify/
+├── netlify/
+│   └── functions/
+│       └── api.js
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   └── Login.js
+│   ├── contexts/
+│   │   └── AuthContext.js
+│   ├── pages/
+│   │   ├── AdminDashboard.js
+│   │   ├── HeadCookDashboard.js
+│   │   ├── ManagerDashboard.js
+│   │   ├── SupervisorDashboard.js
+│   │   └── VoyagerDashboard.js
+│   ├── App.css
+│   ├── App.js
+│   └── index.js
+├── netlify.toml
+├── package.json
+├── .gitignore
+└── README.md
