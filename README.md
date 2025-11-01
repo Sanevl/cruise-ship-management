@@ -1,29 +1,41 @@
-# Cruise Ship Management System
+# 🚢 Cruise Ship Management System
 
-A comprehensive cruise ship management system built with React frontend and Node.js backend, deployed entirely on Netlify.
+A comprehensive full-stack cruise ship management system with role-based access control, real-time ordering, and booking system.
 
-## Features
+## 🌐 Live Demo
 
-### User Roles:
-- **Voyager**: Place orders and make bookings
-- **Admin**: Manage users and items
-- **Manager**: View all bookings
-- **Head-Cook**: Manage catering orders
-- **Supervisor**: Manage stationery orders
+**Live Application:** [https://cruise-shipmanagement.netlify.app/](https://cruise-shipmanagement.netlify.app/)
 
-### Modules:
-- Catering Order Management
-- Stationery Order Management
-- Resort & Movie Booking
-- Beauty Salon Booking
-- Fitness Center Booking
-- Party Hall Booking
+## 📋 Features
 
-## Live Demo
+### User Roles & Capabilities
 
-**Main Application:** [https://your-site.netlify.app](https://your-site.netlify.app)
+| Role | Capabilities |
+|------|-------------|
+| **Voyager** | Order catering/stationery, Book services, View history |
+| **Admin** | User management, View all orders/bookings, Analytics |
+| **Manager** | View all service bookings |
+| **Head Cook** | Manage catering orders |
+| **Supervisor** | Manage stationery orders |
 
-## Test Accounts
+### System Modules
+- ✅ User Authentication & Authorization
+- ✅ Catering Order Management
+- ✅ Stationery Order Management
+- ✅ Service Booking System
+- ✅ Shopping Cart
+- ✅ Real-time Order Tracking
+- ✅ Admin Dashboard with Analytics
+
+## 🛠️ Technology Stack
+
+- **Frontend:** React.js, React Router, Context API
+- **Backend:** Node.js, Express.js, Netlify Functions
+- **Database:** In-memory storage (for demo)
+- **Deployment:** Netlify (Frontend + Backend)
+- **Styling:** CSS3 with modern features
+
+## 🔐 Test Accounts
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -33,14 +45,16 @@ A comprehensive cruise ship management system built with React frontend and Node
 | Head Cook | `cook@test.com` | `password` |
 | Supervisor | `supervisor@test.com` | `password` |
 
-## Local Development
+## 🚀 Local Development
 
 ```bash
+# Clone repository
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+
 # Install dependencies
 npm install
 
-# Start development server
+# Run development server
 npm run dev
 
-# Build for production
-npm run build
+# Access at: http://localhost:8888
