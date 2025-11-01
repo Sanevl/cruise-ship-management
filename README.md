@@ -57,4 +57,7 @@ npm install
 # Run development server
 npm run dev
 
+# Two times click
+click Enter btn 2 times to auto open browser  
+
 # Access at: http://localhost:8888
