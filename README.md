@@ -21,7 +21,7 @@ A comprehensive cruise ship management system built with React frontend and Node
 
 ## Live Demo
 
-**Main Application:** [https://your-site.netlify.app]([https://your-site.netlify.app](https://cruise-shipmanagement.netlify.app/))
+**Main Application:** [https://cruise-shipmanagement.netlify.app/](https://cruise-shipmanagement.netlify.app/)
 
 ## Test Accounts
 
